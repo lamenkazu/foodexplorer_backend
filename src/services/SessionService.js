@@ -3,7 +3,12 @@ class SessionService {
     this.userRepo = sessionRepo;
   }
 
-  async execute() {}
+  async execute({ email, password }) {
+    return await this.userRepo.create({
+      email,
+      password,
+    });
+  }
 }
 
 module.exports = SessionService;

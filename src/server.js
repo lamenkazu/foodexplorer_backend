@@ -5,9 +5,11 @@ const AppError = require("./utils/AppError");
 const express = require("express");
 const cors = require("cors");
 const routes = require("./routes/index");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 app.use(routes);
 
