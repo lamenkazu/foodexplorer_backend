@@ -1,5 +1,19 @@
+const AppError = require("../../utils/AppError");
+const knex = require("../../database/knex");
+const { hash } = require("bcryptjs");
+
 class UserRepository {
-  async create() {}
+  async create({ name, email, password }) {
+    if (!userEmailIsOnDB(email)) throw new AppError(emailExistsMassage);
+
+    const encryptedPassword = await hash(password, 8);
+
+    return await knex("users").insert({
+      name,
+      email,
+      password: encryptedPassword,
+    });
+  }
 
   async validate() {}
 
@@ -7,5 +21,12 @@ class UserRepository {
 
   async delete() {}
 }
+
+const userEmailIsOnDB = async (email) => {
+  return await knex("users").where({ email }).first();
+};
+
+const emailExistsMassage =
+  "Esse email já está em uso por outro usuário e não pode ser utilizado.";
 
 module.exports = UserRepository;

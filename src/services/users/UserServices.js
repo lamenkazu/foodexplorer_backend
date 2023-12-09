@@ -3,7 +3,13 @@ class UserServices {
     this.userRepo = userRepo;
   }
 
-  async executeCreate() {}
+  async executeCreate({ name, email, password }) {
+    return await this.userRepo.create({
+      name,
+      email,
+      password,
+    });
+  }
 
   async executeUpdate() {}
 
