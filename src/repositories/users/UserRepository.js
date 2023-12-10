@@ -4,7 +4,7 @@ const { hash } = require("bcryptjs");
 
 class UserRepository {
   async create({ name, email, password }) {
-    if (!userEmailIsOnDB(email)) throw new AppError(emailExistsMassage);
+    if (!this.userEmailIsOnDB(email)) throw new AppError(emailExistsMassage);
 
     const encryptedPassword = await hash(password, 8);
 
@@ -20,11 +20,11 @@ class UserRepository {
   async update() {}
 
   async delete() {}
-}
 
-const userEmailIsOnDB = async (email) => {
-  return await knex("users").where({ email }).first();
-};
+  async userEmailIsOnDB(email) {
+    return await knex("users").where({ email }).first();
+  }
+}
 
 const emailExistsMassage =
   "Esse email já está em uso por outro usuário e não pode ser utilizado.";
