@@ -3,7 +3,16 @@ class UserAdminServices {
     this.userRepo = userRepo;
   }
 
-  async executeIndex() {}
+  async executeIndex({ name, email }) {
+    const users = await this.userRepo.index({
+      name,
+      email,
+    });
+
+    users.map((user) => delete user.password);
+
+    return users;
+  }
 
   async executeShow() {}
 }

@@ -28,5 +28,5 @@ app.use((err, req, res, next) => {
   });
 });
 
-const port = process.env.PORT || 3033;
+const port = process.env.PORT || 3333;
 app.listen(port, () => console.log(`api runing on port ${port}!`));
