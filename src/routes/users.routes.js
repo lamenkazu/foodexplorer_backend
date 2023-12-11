@@ -10,6 +10,10 @@ const usersRoutes = Router();
 const usersController = new UsersController();
 const usersAdminController = new UsersAdminController();
 
+//Everyone
+usersRoutes.post("/", usersController.create);
+usersRoutes.get("/validate", ensureAuthentication, usersController.validate);
+
 //Admin
 usersRoutes.get(
   "/",
@@ -23,8 +27,5 @@ usersRoutes.get(
   ensureAuthorization(["admin"]),
   usersAdminController.show
 );
-
-//Everyone
-usersRoutes.post("/", usersController.create);
 
 module.exports = usersRoutes;

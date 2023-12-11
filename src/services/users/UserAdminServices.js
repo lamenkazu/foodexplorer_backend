@@ -1,3 +1,5 @@
+const AppError = require("../../utils/AppError");
+
 class UserAdminServices {
   static instance;
 
@@ -17,7 +19,9 @@ class UserAdminServices {
   }
 
   async executeShow(user_id) {
-    return await this.userRepo.show(user_id);
+    const user = await this.userRepo.show(user_id);
+    if (!user) throw new AppError("Usuário não consta no banco de dados");
+    return user;
   }
 }
 

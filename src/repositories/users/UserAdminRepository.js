@@ -1,4 +1,3 @@
-const AppError = require("../../utils/AppError");
 const knex = require("../../database/knex");
 
 class UserAdminRepository {
@@ -10,11 +9,7 @@ class UserAdminRepository {
   }
 
   async show(user_id) {
-    const user = await knex("users").where({ user_id }).first();
-
-    if (!user) throw new AppError("Usuário não consta no banco de dados");
-
-    return user;
+    return await knex("users").where({ user_id }).first();
   }
 }
 

@@ -21,7 +21,16 @@ class UsersController {
 
   async delete(req, res) {}
 
-  async validate(req, res) {}
+  async validate(req, res) {
+    const { user } = req;
+
+    const userRepo = new UserRepository();
+    const userServices = new UserServices(userRepo);
+
+    const existentUserId = await userServices.executeValidate(user.id);
+
+    return res.json(existentUserId);
+  }
 }
 
 module.exports = UsersController;

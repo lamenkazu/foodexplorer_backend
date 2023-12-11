@@ -1,3 +1,5 @@
+const AppError = require("../../utils/AppError");
+
 class UserServices {
   constructor(userRepo) {
     this.userRepo = userRepo;
@@ -15,7 +17,11 @@ class UserServices {
 
   async executeDelete() {}
 
-  async executeValidate() {}
+  async executeValidate(id) {
+    const checkIfUserExsists = await this.userRepo.validate(id);
+    if (!checkIfUserExsists) throw new AppError("Usuário não autorizado", 401);
+    return checkIfUserExsists.user_id;
+  }
 }
 
 module.exports = UserServices;

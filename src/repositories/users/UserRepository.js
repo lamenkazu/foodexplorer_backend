@@ -15,7 +15,9 @@ class UserRepository {
     });
   }
 
-  async validate() {}
+  async validate(id) {
+    return await knex("users").where({ user_id: id }).first();
+  }
 
   async update() {}
 
