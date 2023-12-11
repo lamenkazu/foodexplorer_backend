@@ -1,4 +1,5 @@
 const AppError = require("../../utils/AppError");
+const { hash } = require("bcryptjs");
 
 class UserServices {
   constructor(userRepo) {
@@ -6,10 +7,15 @@ class UserServices {
   }
 
   async executeCreate({ name, email, password }) {
+    if (!this.userRepo.userEmailIsOnDB(email))
+      throw new AppError(emailExistsMassage);
+
+    const encryptedPassword = await hash(password, 8);
+
     return await this.userRepo.create({
       name,
       email,
-      password,
+      password: encryptedPassword,
     });
   }
 

@@ -1,17 +1,11 @@
-const AppError = require("../../utils/AppError");
 const knex = require("../../database/knex");
-const { hash } = require("bcryptjs");
 
 class UserRepository {
   async create({ name, email, password }) {
-    if (!this.userEmailIsOnDB(email)) throw new AppError(emailExistsMassage);
-
-    const encryptedPassword = await hash(password, 8);
-
     return await knex("users").insert({
       name,
       email,
-      password: encryptedPassword,
+      password,
     });
   }
 
