@@ -1,4 +1,6 @@
 class UserAdminServices {
+  static instance;
+
   constructor(userRepo) {
     this.userRepo = userRepo;
   }
@@ -9,12 +11,14 @@ class UserAdminServices {
       email,
     });
 
-    users.map((user) => delete user.password);
+    // users.map((user) => delete user.password);
 
     return users;
   }
 
-  async executeShow() {}
+  async executeShow(user_id) {
+    return await this.userRepo.show(user_id);
+  }
 }
 
 module.exports = UserAdminServices;

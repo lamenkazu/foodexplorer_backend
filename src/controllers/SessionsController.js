@@ -17,8 +17,6 @@ class SessionsController {
       maxAge: 15 * 60 * 1000, //Tempo de validade do cookie
     });
 
-    delete user.password;
-
     res.status(201).json({ user });
   }
 }

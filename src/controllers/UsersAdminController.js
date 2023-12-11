@@ -15,7 +15,16 @@ class UsersAdminController {
     res.json(users);
   }
 
-  async show(req, res) {}
+  async show(req, res) {
+    const { user_id } = req.params;
+
+    const userAdminRepo = new UserAdminRepository();
+    const userAdminServices = new UserAdminServices(userAdminRepo);
+
+    const user = await userAdminServices.executeShow(user_id);
+
+    res.json(user);
+  }
 }
 
 module.exports = UsersAdminController;

@@ -19,6 +19,7 @@ usersRoutes.get(
 );
 usersRoutes.get(
   "/:user_id",
+  ensureAuthentication,
   ensureAuthorization(["admin"]),
   usersAdminController.show
 );
