@@ -8,7 +8,7 @@ dishesRoutes.get("/", dishesController.index);
 dishesRoutes.get("/:dish_id", dishesController.show);
 
 dishesRoutes.post("/", dishesController.create);
-dishesRoutes.put("/", dishesController.update);
+dishesRoutes.put("/:dish_id", dishesController.update);
 dishesRoutes.delete("/:dish_id", dishesController.delete);
 
 module.exports = dishesRoutes;
