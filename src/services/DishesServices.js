@@ -8,7 +8,12 @@ class DishesServices {
 
   async executeIndex() {}
 
-  async executeShow() {}
+  async executeShow(dish_id) {
+    const dish = await this.dishRepo.show(dish_id);
+    if (!dish) throw new AppError("Prato não consta no banco de dados");
+
+    return dish;
+  }
 
   async executeCreate({
     title,
@@ -16,6 +21,7 @@ class DishesServices {
     category,
     price,
     dishImageFilename,
+    ingredients,
   }) {
     const diskStorage = new DiskStorage();
     const filename = await diskStorage.saveFile(dishImageFilename);
@@ -28,6 +34,7 @@ class DishesServices {
       category,
       price,
       image: filename,
+      ingredients,
     });
   }
 
