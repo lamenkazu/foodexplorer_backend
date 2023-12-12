@@ -40,7 +40,16 @@ class DishesServices {
 
   async executeUpdate() {}
 
-  async executeDelete() {}
+  async executeDelete(dish_id) {
+    const removedDish = await this.dishRepo.delete(dish_id);
+    if (!removedDish)
+      throw new AppError("Prato não encontrado, não pode ser removido.");
+
+    const diskStorage = new DiskStorage();
+    await diskStorage.deleteFile(removedDish.image);
+
+    return removedDish;
+  }
 }
 
 module.exports = DishesServices;

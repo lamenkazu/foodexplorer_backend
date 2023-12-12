@@ -12,7 +12,7 @@ class DishesController {
 
     const dish = await dishServices.executeShow(dish_id);
 
-    res.json(dish);
+    return res.json(dish);
   }
 
   async create(req, res) {
@@ -38,7 +38,16 @@ class DishesController {
 
   async update(req, res) {}
 
-  async delete(req, res) {}
+  async delete(req, res) {
+    const { dish_id } = req.params;
+
+    const dishRepo = new DishesRepository();
+    const dishServices = new DishesServices(dishRepo);
+
+    const deletedDish = await dishServices.executeDelete(dish_id);
+
+    return res.status(200).json(deletedDish);
+  }
 }
 
 module.exports = DishesController;

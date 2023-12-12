@@ -38,7 +38,14 @@ class DishesRepository {
 
   async update() {}
 
-  async delete() {}
+  async delete(dish_id) {
+    const [removedDish] = await knex("dishes").where({ dish_id });
+    if (!removedDish) return;
+
+    await knex("dishes").where({ dish_id }).delete();
+
+    return removedDish;
+  }
 }
 
 module.exports = DishesRepository;
