@@ -2,6 +2,8 @@ require("dotenv/config");
 require("express-async-errors");
 const AppError = require("./utils/AppError");
 
+const dishImgConfig = require("./configs/dishImage");
+
 const express = require("express");
 const cors = require("cors");
 const routes = require("./routes/index");
@@ -12,6 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 app.use(routes);
+app.use("files", express.static(dishImgConfig.UPLOADS_MENU_FOLDER));
 
 app.use((err, req, res, next) => {
   if (err instanceof AppError) {
