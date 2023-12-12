@@ -43,7 +43,29 @@ class DishesServices {
     });
   }
 
-  async executeUpdate() {}
+  async executeUpdate({
+    dish_id,
+    title,
+    description,
+    category,
+    price,
+    ingredients,
+  }) {
+    const updated = this.dishRepo.update({
+      dish_id,
+      title,
+      description,
+      category,
+      price,
+      ingredients,
+    });
+
+    if (!updated)
+      throw new AppError(
+        "Prato não encontrado, não foi possível atualizar.",
+        404
+      );
+  }
 
   async executeDelete(dish_id) {
     const removedDish = await this.dishRepo.delete(dish_id);

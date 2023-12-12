@@ -29,7 +29,7 @@ class DishesController {
 
   async create(req, res) {
     const { title, description, category, price, ingredients } = JSON.parse(
-      req.body.body
+      req.body.dish
     );
     const dishImageFilename = req.file.filename;
 
@@ -48,7 +48,24 @@ class DishesController {
     return res.status(201).json(newDishId);
   }
 
-  async update(req, res) {}
+  async update(req, res) {
+    const { dish_id } = req.params;
+    const { title, description, category, price, ingredients } = req.query;
+
+    const dishRepo = new DishesRepository();
+    const dishServices = new DishesServices(dishRepo);
+
+    await dishServices.executeUpdate({
+      dish_id,
+      title,
+      description,
+      category,
+      price,
+      ingredients: JSON.parse(ingredients),
+    });
+
+    return res.json();
+  }
 
   async delete(req, res) {
     const { dish_id } = req.params;
