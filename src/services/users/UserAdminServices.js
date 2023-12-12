@@ -13,14 +13,18 @@ class UserAdminServices {
       email,
     });
 
-    // users.map((user) => delete user.password);
+    if (!users)
+      throw new AppError(
+        "Nenhum usuário não consta no banco de dados! Como chegou até aqui?",
+        404
+      );
 
     return users;
   }
 
   async executeShow(user_id) {
     const user = await this.userRepo.show(user_id);
-    if (!user) throw new AppError("Usuário não consta no banco de dados");
+    if (!user) throw new AppError("Usuário não consta no banco de dados", 404);
     return user;
   }
 }

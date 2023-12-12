@@ -1,7 +1,33 @@
 const knex = require("../database/knex");
 
 class DishesRepository {
-  async index() {}
+  async index({ title, category }) {
+    const dishesFromDB = await knex("dishes")
+      .whereLike("title", `%${title}%`)
+      .andWhereLike("category", `%${category}%`)
+      .orderBy("created_at", "desc");
+
+    //Ids de todos os pratos
+    const dishesIds = dishesFromDB.map((dish) => dish.dish_id);
+
+    //Recupera os ingredientes associados aos pratos
+    const ingredientsFromDb = await knex("ingredients").whereIn(
+      "dish_id",
+      dishesIds
+    );
+
+    const dishes = dishesFromDB.map((dish) => {
+      const ingredients = ingredientsFromDb.filter(
+        (ingredient) => ingredient.dish_id === dish.dish_id
+      );
+      return {
+        ...dish,
+        ingredients,
+      };
+    });
+
+    return dishes;
+  }
 
   async show(dish_id) {
     const [dish] = await knex("dishes").where({ dish_id });

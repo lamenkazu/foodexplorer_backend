@@ -6,11 +6,16 @@ class DishesServices {
     this.dishRepo = dishRepo;
   }
 
-  async executeIndex() {}
+  async executeIndex({ title, category }) {
+    const dishes = await this.dishRepo.index({ title, category });
+    if (!dishes) throw new AppError("Não há nenhum prato no menu", 404);
+
+    return dishes;
+  }
 
   async executeShow(dish_id) {
     const dish = await this.dishRepo.show(dish_id);
-    if (!dish) throw new AppError("Prato não consta no banco de dados");
+    if (!dish) throw new AppError("Prato não consta no banco de dados", 404);
 
     return dish;
   }

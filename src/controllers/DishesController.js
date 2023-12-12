@@ -2,7 +2,19 @@ const DishesRepository = require("../repositories/DishesRepository");
 const DishesServices = require("../services/DishesServices");
 
 class DishesController {
-  async index(req, res) {}
+  async index(req, res) {
+    const { title, category } = req.query;
+
+    const dishRepo = new DishesRepository();
+    const dishServices = new DishesServices(dishRepo);
+
+    const dishes = await dishServices.executeIndex({
+      title,
+      category,
+    });
+
+    return res.json(dishes);
+  }
 
   async show(req, res) {
     const { dish_id } = req.params;
