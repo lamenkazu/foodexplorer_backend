@@ -1,11 +1,24 @@
 const knex = require("../database/knex");
 
 class DishesRepository {
-  async index({ title, category }) {
-    const dishesFromDB = await knex("dishes")
-      .whereLike("title", `%${title}%`)
-      .andWhereLike("category", `%${category}%`)
-      .orderBy("created_at", "desc");
+  async index({ title, ingredients }) {
+    let dishesFromDB;
+
+    if (ingredients) {
+      const filteredIngredients = ingredients
+        .split(",")
+        .map((ingredient) => ingredient.trim());
+      dishesFromDB = await knex("dishes")
+        .whereLike("title", `%${title}%`)
+        .whereIn("name", filteredIngredients) //Analisa baseado na tag o nome da tag com o vetor para verificar se a tag existe ali ou não.
+        .innerJoin("ingredients", "dishes.dish_id", "ingredients.dish_id")
+        .groupBy("dishes.dish_id");
+    } else {
+      dishesFromDB = await knex("dishes")
+        .whereLike("title", `%${title}%`)
+        .innerJoin("ingredients", "dishes.dish_id", "ingredients.dish_id")
+        .groupBy("dishes.dish_id");
+    }
 
     //Ids de todos os pratos
     const dishesIds = dishesFromDB.map((dish) => dish.dish_id);
@@ -17,9 +30,9 @@ class DishesRepository {
     );
 
     const dishes = dishesFromDB.map((dish) => {
-      const ingredients = ingredientsFromDb.filter(
-        (ingredient) => ingredient.dish_id === dish.dish_id
-      );
+      const ingredients = ingredientsFromDb
+        .filter((ingredient) => ingredient.dish_id === dish.dish_id)
+        .map((ingredient) => ingredient.name);
       return {
         ...dish,
         ingredients,
@@ -52,8 +65,8 @@ class DishesRepository {
       image,
     });
 
-    const ingredientsToInsert = ingredients.map((title) => ({
-      title,
+    const ingredientsToInsert = ingredients.map((name) => ({
+      name,
       dish_id,
     }));
 

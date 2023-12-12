@@ -6,8 +6,8 @@ class DishesServices {
     this.dishRepo = dishRepo;
   }
 
-  async executeIndex({ title, category }) {
-    const dishes = await this.dishRepo.index({ title, category });
+  async executeIndex({ title, ingredients }) {
+    const dishes = await this.dishRepo.index({ title, ingredients });
     if (!dishes) throw new AppError("Não há nenhum prato no menu", 404);
 
     return dishes;
