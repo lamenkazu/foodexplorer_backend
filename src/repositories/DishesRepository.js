@@ -1,7 +1,7 @@
 const knex = require("../database/knex");
 
 class DishesRepository {
-  async index({ title, ingredients }) {
+  async index({ title, category, ingredients }) {
     let dishesFromDB;
 
     if (ingredients) {
@@ -10,11 +10,13 @@ class DishesRepository {
         .map((ingredient) => ingredient.trim());
       dishesFromDB = await knex("dishes")
         .whereLike("title", `%${title}%`)
+        .andWhereLike("category", `%${category}%`)
         .whereIn("name", filteredIngredients) //Analisa baseado na tag o nome da tag com o vetor para verificar se a tag existe ali ou não.
         .groupBy("dishes.dish_id");
     } else {
       dishesFromDB = await knex("dishes")
         .whereLike("title", `%${title}%`)
+        .andWhereLike("category", `%${category}%`)
         .groupBy("dishes.dish_id");
     }
 

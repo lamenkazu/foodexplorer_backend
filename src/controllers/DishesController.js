@@ -3,13 +3,14 @@ const DishesServices = require("../services/DishesServices");
 
 class DishesController {
   async index(req, res) {
-    const { title, ingredients } = req.query;
+    const { title, ingredients, category } = req.query;
 
     const dishRepo = new DishesRepository();
     const dishServices = new DishesServices(dishRepo);
 
     const dishes = await dishServices.executeIndex({
       title,
+      category,
       ingredients,
     });
 

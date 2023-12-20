@@ -19,7 +19,7 @@ app.use(
   })
 );
 app.use(routes);
-app.use("files", express.static(dishImgConfig.UPLOADS_MENU_FOLDER));
+app.use("/files", express.static(dishImgConfig.UPLOADS_MENU_FOLDER));
 
 app.use((err, req, res, next) => {
   if (err instanceof AppError) {
