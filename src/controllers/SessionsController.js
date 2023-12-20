@@ -14,7 +14,7 @@ class SessionsController {
       httpOnly: true, //Não pode ser acessado por scripts, aumentando a segurança
       sameSite: "none",
       secure: true,
-      maxAge: 15 * 60 * 1000, //Tempo de validade do cookie
+      maxAge: 24 * 60 * 60 * 1000, //Tempo de validade do cookie
     });
 
     res.status(201).json({ user });
