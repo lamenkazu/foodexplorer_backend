@@ -22,7 +22,4 @@ class UserRepository {
   }
 }
 
-const emailExistsMassage =
-  "Esse email já está em uso por outro usuário e não pode ser utilizado.";
-
 module.exports = UserRepository;
