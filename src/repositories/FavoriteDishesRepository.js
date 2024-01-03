@@ -2,12 +2,12 @@ const knex = require("../database/knex");
 
 class FavoriteDishesRepository {
   async index({ user_id }) {
-    const favorites = await knex("favorites").where({ user_id });
+    const favorites = await knex("favorites")
+      .where({ user_id })
+      .innerJoin("dishes", "favorites.dish_id", "dishes.dish_id")
+      .select("dishes.*");
 
-    if (!favorites) return;
-    else {
-      return favorites;
-    }
+    return favorites;
   }
 
   async favorite({ user_id, dish_id }) {
