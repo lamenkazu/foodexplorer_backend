@@ -51,7 +51,7 @@ class DishesController {
 
   async update(req, res) {
     const { dish_id } = req.params;
-    const { title, description, category, price, ingredients } = req.query;
+    const { title, description, category, price, ingredients } = req.body;
 
     const dishRepo = new DishesRepository();
     const dishServices = new DishesServices(dishRepo);
@@ -62,7 +62,7 @@ class DishesController {
       description,
       category,
       price,
-      ingredients: JSON.parse(ingredients),
+      ingredients: ingredients,
     });
 
     return res.json();
