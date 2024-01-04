@@ -46,6 +46,12 @@ dishesRoutes.get(
   favDishesController.index
 );
 
+dishesRoutes.get(
+  "/favorite/:dish_id",
+  ensureAuthorization(["customer"]),
+  favDishesController.isFavorite
+);
+
 dishesRoutes.post(
   "/favorite/:dish_id",
   ensureAuthorization(["customer"]),

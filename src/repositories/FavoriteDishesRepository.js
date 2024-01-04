@@ -10,6 +10,14 @@ class FavoriteDishesRepository {
     return favorites;
   }
 
+  async isFavorite({ user_id, dish_id }) {
+    const favorited = await knex("favorites")
+      .where({ user_id, dish_id })
+      .first();
+
+    return !!favorited;
+  }
+
   async favorite({ user_id, dish_id }) {
     const favorited = await knex("favorites")
       .where({ user_id, dish_id })

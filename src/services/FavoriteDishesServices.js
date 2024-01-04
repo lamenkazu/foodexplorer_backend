@@ -14,6 +14,10 @@ class FavoriteDishesService {
     return favorites;
   }
 
+  async executeIsFavorite({ user_id, dish_id }) {
+    return await this.favDishesRepo.isFavorite({ user_id, dish_id });
+  }
+
   async executeFavorite({ user_id, dish_id }) {
     const favorited = await this.favDishesRepo.favorite({ user_id, dish_id });
 

@@ -15,6 +15,21 @@ class FavoriteDishesController {
     return res.json(favorites);
   }
 
+  async isFavorite(req, res) {
+    const { user } = req;
+    const { dish_id } = req.params;
+
+    const favDishesRepo = new FavoriteDishesRepository();
+    const favDishesServices = new FavoriteDishesServices(favDishesRepo);
+
+    const isFavorite = await favDishesServices.executeIsFavorite({
+      user_id: user.id,
+      dish_id,
+    });
+
+    return res.json(isFavorite);
+  }
+
   async favorite(req, res) {
     const { user } = req;
     const { dish_id } = req.params;
