@@ -26,11 +26,13 @@ Abra o terminal na pasta com o projeto e execute os comandos para instalação e
 - npm i
 - npm start
 
-# Overview
-Bem-vindo! Este projeto backend foi desenvolvido como parte do programa Explorer da Rocketseat. Abaixo está uma visão geral do que foi implementado.
 
-## Sobre o Projeto
+# Sobre o Projeto
+Bem-vindo! Este projeto backend foi desenvolvido como parte do programa Explorer da Rocketseat. Abaixo está uma visão geral do que foi implementado.
 O Desafio Final visa criar um sistema robusto e funcional para gerenciar um restaurante, com destaque para as operações de CRUD (Criar, Ler, Atualizar, Apagar) relacionadas aos pratos oferecidos. O backend é responsável por fornecer uma API eficiente, segura e bem documentada.
+
+## Estrutura do Projeto
+O código está organizado de forma modular, seguindo as boas práticas de desenvolvimento. Os endpoints da API estão divididos de maneira lógica, facilitando a manutenção e escalabilidade do sistema.
 
 ## Tecnologias Utilizadas
 - **Node.js e Express:** O backend foi construído utilizando Node.js como runtime e o framework Express para criar a API de forma rápida e eficiente.
@@ -44,9 +46,6 @@ O Desafio Final visa criar um sistema robusto e funcional para gerenciar um rest
 - **Banco de Dados:** Utilizamos o SQLite para armazenar dados do administrador, restaurante e usuários.
 - **Funcionalidades de Busca:** Implementação de funcionalidades de busca por nome e ingredientes para facilitar a pesquisa de pratos.
 - **Documentação Detalhada:** O README do projeto contém informações completas sobre a execução do projeto, incluindo instruções de configuração e link para deploy.
-
-## Estrutura do Projeto
-O código está organizado de forma modular, seguindo as boas práticas de desenvolvimento. Os endpoints da API estão divididos de maneira lógica, facilitando a manutenção e escalabilidade do sistema.
 
 ## Features
 ### Rota de Usuário
