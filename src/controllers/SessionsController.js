@@ -12,6 +12,8 @@ class SessionsController {
 
     res.cookie("token", token, {
       httpOnly: true, //Não pode ser acessado por scripts, aumentando a segurança
+      sameSite: "none",
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000, //Tempo de validade do cookie
     });
 
