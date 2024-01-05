@@ -20,6 +20,7 @@
 </h4>
 
 # Deploy
+Você pode utilizar a API através do [link do Deploy!](https://foodexplorer-backend-or5d.onrender.com)
 
 # Getting Started
 Abra o terminal na pasta com o projeto e execute os comandos para instalação e execução do servidor:
